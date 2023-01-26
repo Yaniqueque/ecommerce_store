@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../models/models.dart';
@@ -18,11 +20,18 @@ class ProductCarousel extends StatelessWidget {
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           scrollDirection: Axis.horizontal,
+          dragStartBehavior: DragStartBehavior.start,
           itemCount: Product.products.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: ProductCard(product: Product.products[index]),
+            return Container(
+              width: kIsWeb ? 200.0 : double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Container(
+                  width: kIsWeb ? 200.0 : double.infinity,
+                  child: ProductCard(product: Product.products[index]),
+                ),
+              ),
             );
           }),
     );
