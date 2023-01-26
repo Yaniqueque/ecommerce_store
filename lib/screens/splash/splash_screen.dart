@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String route = '/';
-    Timer(const Duration(seconds: 2), () => Navigator.pop(context, route));
+    Timer(const Duration(seconds: 1), () => Navigator.pop(context, route));
 
     return Scaffold(
       body:

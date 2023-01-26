@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,41 +17,49 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Center(
+        child: Container(
+            //width: kIsWeb ? 200.0 : double.infinity,
+            child: (InkWell(
       onTap: () {
         Navigator.pushNamed(context, '/product', arguments: product);
       },
-      child: Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 2.5,
-            height: 150,
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
+      child: Container(
+        //width: kIsWeb ? 200.0 : double.infinity,
+        child: Stack(
+          children: [
+            Container(
+              width:
+                  // kIsWeb ? 400.0 : double.infinity,
+                  //    MediaQuery.of(context).size.width,
+                  MediaQuery.of(context).size.width / 2.5,
+              height: 150,
+              child: Image.network(
+                product.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned(
-            top: 60,
-            child: Container(
-                width: MediaQuery.of(context).size.width / 2.5,
-                height: 80,
-                decoration: BoxDecoration(color: Colors.black.withAlpha(50))),
-          ),
-          Positioned(
-            top: 85,
-            //left: 5,
-            child: Container(
-                width: MediaQuery.of(context).size.width / 2.5 - 10,
-                height: 70,
-                decoration: BoxDecoration(color: Colors.black),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Column(
+            Positioned(
+              top: 60,
+              child: Container(
+                  // width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width / 2.5,
+                  height: 80,
+                  decoration: BoxDecoration(color: Colors.black.withAlpha(50))),
+            ),
+            Positioned(
+              top: 85,
+              //left: 5,
+              child: Container(
+                  // width: MediaQuery.of(context).size.width ,
+                  width: MediaQuery.of(context).size.width / 2.5 - 10,
+                  height: 70,
+                  decoration: BoxDecoration(color: Colors.black),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -70,17 +79,18 @@ class ProductCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                      BlocBuilder<CartBloc, CartState>(
-                        builder: (context, state) {
-                          if (state is CartLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          if (state is CartLoaded) {
-                            return Expanded(
-                              child: IconButton(
+                        const SizedBox(
+                          width: 70,
+                        ),
+                        BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) {
+                            if (state is CartLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (state is CartLoaded) {
+                              return IconButton(
                                 onPressed: () {
                                   context
                                       .read<CartBloc>()
@@ -90,34 +100,34 @@ class ProductCard extends StatelessWidget {
                                   Icons.add_circle,
                                   color: Colors.white,
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Text('Something went wrong');
-                          }
-                        },
-                      ),
-                      isWishlist
-                          ? Expanded(
-                              child: IconButton(
-                                onPressed: () {
-                                  context
-                                      .read<WishlistBloc>()
-                                      .add(RemoveProductFromWishlist(product));
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
+                              );
+                            } else {
+                              return Text('Something went wrong');
+                            }
+                          },
+                        ),
+                        isWishlist
+                            ? Expanded(
+                                child: IconButton(
+                                  onPressed: () {
+                                    context.read<WishlistBloc>().add(
+                                        RemoveProductFromWishlist(product));
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : SizedBox()
-                    ],
-                  ),
-                )),
-          ),
-        ],
+                              )
+                            : SizedBox()
+                      ],
+                    ),
+                  )),
+            ),
+          ],
+        ),
       ),
-    );
+      // ),
+    ))));
   }
 }
