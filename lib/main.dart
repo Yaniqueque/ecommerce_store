@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'TechGoodies',
           //theme: theme(),
-          home: HomeScreen(),
+          //home: HomeScreen(),
 
           theme: theme(),
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: HomeScreen.routeName,
+          initialRoute: SplashScreen.routeName,
         ));
   }
 }
