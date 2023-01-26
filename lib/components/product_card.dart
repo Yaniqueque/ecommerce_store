@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/cart/bloc/cart_bloc.dart';
+import '../blocs/wishlist/wishlist_bloc.dart';
 import '../models/models.dart';
 
 class ProductCard extends StatelessWidget {
@@ -99,7 +100,11 @@ class ProductCard extends StatelessWidget {
                       isWishlist
                           ? Expanded(
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context
+                                      .read<WishlistBloc>()
+                                      .add(RemoveProductFromWishlist(product));
+                                },
                                 icon: Icon(
                                   Icons.delete,
                                   color: Colors.white,
