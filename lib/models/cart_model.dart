@@ -5,7 +5,7 @@ import 'models.dart';
 class Cart extends Equatable {
   final List<Product> products;
 
-  Cart({this.products = const <Product>[]});
+  const Cart({this.products = const <Product>[]});
 
   double get subtotal =>
       products.fold(0, (total, current) => total + current.price);

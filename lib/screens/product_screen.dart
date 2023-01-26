@@ -4,6 +4,7 @@ import 'package:ecommerce_store/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/cart/bloc/cart_bloc.dart';
 import '../models/models.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -56,13 +57,21 @@ class ProductScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(onPrimary: Colors.white),
-                      onPressed: () {},
-                      child: Text(
-                        'ADD TO CART',
-                        style: Theme.of(context).textTheme.headline3,
-                      ))
+                  BlocBuilder<CartBloc, CartState>(
+                    builder: (context, state) {
+                      return ElevatedButton(
+                          style:
+                              ElevatedButton.styleFrom(onPrimary: Colors.white),
+                          onPressed: () {
+                            context.read<CartBloc>().add(AddProduct(product));
+                            Navigator.pushNamed(context, 'cart');
+                          },
+                          child: Text(
+                            'ADD TO CART',
+                            style: Theme.of(context).textTheme.headline3,
+                          ));
+                    },
+                  )
                 ]),
           )),
       body: ListView(children: [
